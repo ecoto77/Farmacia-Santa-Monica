@@ -40,7 +40,6 @@ const ServicesSection = () => {
   const { data: categories } = useCategories();
   const { data: searchResults, isLoading: isSearching } = useProducts({
     searchQuery: searchQuery.length >= 2 ? searchQuery : undefined,
-    searchFilter,
   });
 
   const isSearchActive = searchQuery.length >= 2;
