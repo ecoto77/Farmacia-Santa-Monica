@@ -8,7 +8,7 @@ import serviceAccesorios from "@/assets/service-accesorios.jpg";
 import serviceAtencion from "@/assets/service-atencion.jpg";
 import ProductSearch from "@/components/ProductSearch";
 import CategoryProductsDialog from "@/components/CategoryProductsDialog";
-import { useCategories, useProducts, type SearchFilter } from "@/hooks/useProducts";
+import { useCategories, useProducts } from "@/hooks/useProducts";
 import { FlaskConical, Package } from "lucide-react";
 
 const categoryImages: Record<string, string> = {
