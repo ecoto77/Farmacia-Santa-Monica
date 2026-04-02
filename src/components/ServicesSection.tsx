@@ -44,9 +44,8 @@ const ServicesSection = () => {
 
   const isSearchActive = searchQuery.length >= 2;
 
-  const handleSearch = (query: string, filter: SearchFilter) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setSearchFilter(filter);
   };
 
   // Group search results by category
