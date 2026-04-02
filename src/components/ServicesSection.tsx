@@ -8,7 +8,7 @@ import serviceAccesorios from "@/assets/service-accesorios.jpg";
 import serviceAtencion from "@/assets/service-atencion.jpg";
 import ProductSearch from "@/components/ProductSearch";
 import CategoryProductsDialog from "@/components/CategoryProductsDialog";
-import { useCategories, useProducts, type SearchFilter } from "@/hooks/useProducts";
+import { useCategories, useProducts } from "@/hooks/useProducts";
 import { FlaskConical, Package } from "lucide-react";
 
 const categoryImages: Record<string, string> = {
@@ -31,7 +31,6 @@ const cardVariants = {
 
 const ServicesSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchFilter, setSearchFilter] = useState<SearchFilter>("name");
   const [selectedCategory, setSelectedCategory] = useState<{
     id: string;
     name: string;
@@ -41,14 +40,12 @@ const ServicesSection = () => {
   const { data: categories } = useCategories();
   const { data: searchResults, isLoading: isSearching } = useProducts({
     searchQuery: searchQuery.length >= 2 ? searchQuery : undefined,
-    searchFilter,
   });
 
   const isSearchActive = searchQuery.length >= 2;
 
-  const handleSearch = (query: string, filter: SearchFilter) => {
+  const handleSearch = (query: string) => {
     setSearchQuery(query);
-    setSearchFilter(filter);
   };
 
   // Group search results by category

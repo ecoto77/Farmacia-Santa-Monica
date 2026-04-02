@@ -5,17 +5,14 @@ import type { Tables } from "@/integrations/supabase/types";
 export type Product = Tables<"products">;
 export type Category = Tables<"categories">;
 
-export type SearchFilter = "name" | "active_ingredient" | "presentation";
-
 interface UseProductsOptions {
   searchQuery?: string;
-  searchFilter?: SearchFilter;
   categoryId?: string;
 }
 
-export function useProducts({ searchQuery, searchFilter, categoryId }: UseProductsOptions = {}) {
+export function useProducts({ searchQuery, categoryId }: UseProductsOptions = {}) {
   return useQuery({
-    queryKey: ["products", searchQuery, searchFilter, categoryId],
+    queryKey: ["products", searchQuery, categoryId],
     queryFn: async () => {
       let query = supabase
         .from("products")
@@ -28,13 +25,7 @@ export function useProducts({ searchQuery, searchFilter, categoryId }: UseProduc
 
       if (searchQuery && searchQuery.trim().length > 0) {
         const term = `%${searchQuery.trim()}%`;
-        if (searchFilter === "active_ingredient") {
-          query = query.ilike("active_ingredient", term);
-        } else if (searchFilter === "presentation") {
-          query = query.ilike("presentation", term);
-        } else {
-          query = query.ilike("name", term);
-        }
+        query = query.or(`name.ilike.${term},active_ingredient.ilike.${term},presentation.ilike.${term}`);
       }
 
       const { data, error } = await query;
