@@ -76,26 +76,42 @@ const SeasonalPromoCarousel = () => {
               {promotions.map((promo, i) => (
                 <div key={promo.id} className="flex-[0_0_100%] min-w-0">
                   <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80">
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-center px-8 sm:px-12 lg:px-16">
-                      {promo.badge && (
-                        <span className="inline-block w-fit px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider mb-3">
-                          {promo.badge}
-                        </span>
-                      )}
-                      <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-2">
-                        {promo.title}
-                      </h3>
-                      {promo.subtitle && (
-                        <p className="text-primary-foreground/90 text-base sm:text-lg font-medium mb-1">
-                          {promo.subtitle}
-                        </p>
-                      )}
-                      {promo.description && (
-                        <p className="text-primary-foreground/70 text-sm sm:text-base max-w-md">
-                          {promo.description}
-                        </p>
-                      )}
+                    <div className="absolute inset-0 flex">
+                      {/* Content */}
+                      <div className="flex-1 flex flex-col justify-center px-8 sm:px-12 lg:px-16">
+                        {promo.badge && (
+                          <span className="inline-block w-fit px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider mb-3">
+                            {promo.badge}
+                          </span>
+                        )}
+                        <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-2">
+                          {promo.title}
+                        </h3>
+                        {promo.subtitle && (
+                          <p className="text-primary-foreground/90 text-base sm:text-lg font-medium mb-1">
+                            {promo.subtitle}
+                          </p>
+                        )}
+                        {promo.description && (
+                          <p className="text-primary-foreground/70 text-sm sm:text-base max-w-md">
+                            {promo.description}
+                          </p>
+                        )}
+                      </div>
+                      {/* Image */}
+                      <div className="hidden sm:flex w-1/3 items-center justify-center p-4">
+                        {promo.image_url ? (
+                          <img
+                            src={promo.image_url}
+                            alt={promo.title}
+                            className="max-h-full max-w-full object-contain rounded-xl drop-shadow-lg"
+                          />
+                        ) : (
+                          <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-xl bg-primary-foreground/10 border-2 border-dashed border-primary-foreground/30 flex items-center justify-center">
+                            <span className="text-primary-foreground/40 text-xs text-center px-2">Imagen</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>

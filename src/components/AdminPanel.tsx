@@ -8,7 +8,7 @@ import { useCategories, useProducts } from "@/hooks/useProducts";
 import { usePromotions, useSiteSettings } from "@/hooks/usePromotions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Trash2, Sun, Snowflake, TreePine, Save } from "lucide-react";
+import { Plus, Trash2, Sun, Snowflake, TreePine, Save, Upload, Image } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface AdminPanelProps {
@@ -93,6 +93,31 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
       toast.error("Error al eliminar promoción");
     } else {
       toast.success("Promoción eliminada");
+      queryClient.invalidateQueries({ queryKey: ["promotions"] });
+    }
+  };
+
+  const handleUploadPromoImage = async (promoId: string, file: File) => {
+    const fileExt = file.name.split(".").pop();
+    const filePath = `${promoId}.${fileExt}`;
+    const { error: uploadError } = await supabase.storage
+      .from("promotions")
+      .upload(filePath, file, { upsert: true });
+    if (uploadError) {
+      toast.error("Error al subir imagen");
+      return;
+    }
+    const { data: urlData } = supabase.storage
+      .from("promotions")
+      .getPublicUrl(filePath);
+    const { error: updateError } = await supabase
+      .from("promotions")
+      .update({ image_url: urlData.publicUrl })
+      .eq("id", promoId);
+    if (updateError) {
+      toast.error("Error al actualizar promoción");
+    } else {
+      toast.success("Imagen subida correctamente");
       queryClient.invalidateQueries({ queryKey: ["promotions"] });
     }
   };
@@ -222,11 +247,32 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
 
             <div className="space-y-2 max-h-72 overflow-y-auto">
               {(promotions || []).map((p) => (
-                <div key={p.id} className="flex items-center justify-between gap-2 p-3 rounded-lg border border-border bg-card text-sm">
+                <div key={p.id} className="flex items-center gap-2 p-3 rounded-lg border border-border bg-card text-sm">
+                  {p.image_url ? (
+                    <img src={p.image_url} alt={p.title} className="w-10 h-10 rounded object-cover shrink-0" />
+                  ) : (
+                    <div className="w-10 h-10 rounded bg-muted flex items-center justify-center shrink-0">
+                      <Image className="w-4 h-4 text-muted-foreground" />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <span className="font-medium text-foreground">{p.title}</span>
                     {p.badge && <span className="ml-2 px-2 py-0.5 rounded-full bg-accent/20 text-accent text-xs">{p.badge}</span>}
                   </div>
+                  <label className="shrink-0 cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleUploadPromoImage(p.id, file);
+                      }}
+                    />
+                    <div className="p-2 rounded-md hover:bg-muted transition-colors text-muted-foreground hover:text-foreground">
+                      <Upload className="w-4 h-4" />
+                    </div>
+                  </label>
                   <Button variant="ghost" size="icon" onClick={() => handleDeletePromo(p.id)} className="shrink-0 text-destructive hover:text-destructive">
                     <Trash2 className="w-4 h-4" />
                   </Button>
