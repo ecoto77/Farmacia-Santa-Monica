@@ -8,7 +8,7 @@ import { useCategories, useProducts } from "@/hooks/useProducts";
 import { usePromotions, useSiteSettings } from "@/hooks/usePromotions";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Trash2, Sun, Snowflake, TreePine, Save } from "lucide-react";
+import { Plus, Trash2, Sun, Snowflake, TreePine, Save, Upload, Image } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface AdminPanelProps {
