@@ -4,9 +4,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { usePromotions, useSiteSettings } from "@/hooks/usePromotions";
 
-import bgSummer from "@/assets/bg-summer.jpg";
-import bgWinter from "@/assets/bg-winter.jpg";
-import bgChristmas from "@/assets/bg-christmas.jpg";
+const bgSummer = new URL("@/assets/bg-summer.jpg", import.meta.url).href;
+const bgWinter = new URL("@/assets/bg-winter.jpg", import.meta.url).href;
+const bgChristmas = new URL("@/assets/bg-christmas.jpg", import.meta.url).href;
 
 const backgroundImages: Record<string, string> = {
   summer: bgSummer,
