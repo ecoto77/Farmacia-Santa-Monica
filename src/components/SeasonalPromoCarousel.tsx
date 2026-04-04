@@ -4,21 +4,24 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { usePromotions, useSiteSettings } from "@/hooks/usePromotions";
 
-import bgSummer from "@/assets/bg-summer.jpg";
-import bgWinter from "@/assets/bg-winter.jpg";
-import bgChristmas from "@/assets/bg-christmas.jpg";
-
-const backgroundImages: Record<string, string> = {
-  summer: bgSummer,
-  winter: bgWinter,
-  christmas: bgChristmas,
+// Lazy-load background images to prevent module crash on transient 503s
+const backgroundImages: Record<string, () => Promise<{ default: string }>> = {
+  summer: () => import("@/assets/bg-summer.jpg"),
+  winter: () => import("@/assets/bg-winter.jpg"),
+  christmas: () => import("@/assets/bg-christmas.jpg"),
 };
 
 const SeasonalPromoCarousel = () => {
   const { data: promotions } = usePromotions();
   const { data: settings } = useSiteSettings();
   const theme = settings?.find((s) => s.key === "promo_background_theme")?.value || "summer";
-  const bgImage = backgroundImages[theme] || bgSummer;
+
+  const [bgImage, setBgImage] = useState<string>("");
+
+  useEffect(() => {
+    const loader = backgroundImages[theme] || backgroundImages.summer;
+    loader().then((m) => setBgImage(m.default)).catch(() => setBgImage(""));
+  }, [theme]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -47,7 +50,7 @@ const SeasonalPromoCarousel = () => {
   return (
     <section
       className="relative py-20 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      style={bgImage ? { backgroundImage: `url(${bgImage})` } : undefined}
     >
       {/* Overlay for readability */}
       <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px]" />
