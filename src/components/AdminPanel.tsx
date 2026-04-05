@@ -340,6 +340,50 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
               ))}
             </div>
           </TabsContent>
+
+          {/* MESSAGES TAB */}
+          <TabsContent value="messages" className="space-y-3 mt-4">
+            <p className="text-sm text-muted-foreground">Mensajes recibidos del formulario de contacto:</p>
+            <div className="space-y-2 max-h-[500px] overflow-y-auto">
+              {(contactMessages || []).map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`p-4 rounded-xl border text-sm space-y-2 ${
+                    msg.is_read ? "border-border bg-card opacity-70" : "border-accent bg-accent/5"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {msg.is_read ? (
+                        <MailOpen className="w-4 h-4 text-muted-foreground" />
+                      ) : (
+                        <Mail className="w-4 h-4 text-accent" />
+                      )}
+                      <span className="font-semibold text-foreground">{msg.name}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(msg.created_at).toLocaleDateString("es-CR")}
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{msg.email}</p>
+                  <p className="text-foreground">{msg.message}</p>
+                  <div className="flex gap-2 pt-1">
+                    {!msg.is_read && (
+                      <Button variant="outline" size="sm" onClick={() => handleMarkAsRead(msg.id)}>
+                        <Eye className="w-3 h-3 mr-1" /> Marcar leído
+                      </Button>
+                    )}
+                    <Button variant="ghost" size="sm" className="text-destructive" onClick={() => handleDeleteMessage(msg.id)}>
+                      <Trash2 className="w-3 h-3 mr-1" /> Eliminar
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              {(!contactMessages || contactMessages.length === 0) && (
+                <p className="text-sm text-muted-foreground text-center py-8">No hay mensajes aún</p>
+              )}
+            </div>
+          </TabsContent>
         </Tabs>
       </SheetContent>
     </Sheet>
