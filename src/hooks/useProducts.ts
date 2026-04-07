@@ -2,10 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
-// Debug: log the Supabase URL at module load time
-console.log("[supabase-debug] URL:", import.meta.env.VITE_SUPABASE_URL);
-console.log("[supabase-debug] Key present:", !!import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY);
-
 export type Product = Tables<"products">;
 export type Category = Tables<"categories">;
 
@@ -18,7 +14,6 @@ export function useProducts({ searchQuery, categoryId }: UseProductsOptions = {}
   return useQuery({
     queryKey: ["products", searchQuery, categoryId],
     queryFn: async () => {
-      console.log("[useProducts] Fetching products...", { searchQuery, categoryId });
       let query = supabase
         .from("products")
         .select("*, categories(name, slug)")
@@ -34,31 +29,34 @@ export function useProducts({ searchQuery, categoryId }: UseProductsOptions = {}
       }
 
       const { data, error } = await query;
-      if (error) {
-        console.error("[useProducts] Error:", error);
-        throw error;
-      }
-      console.log("[useProducts] Got", data?.length, "products");
+      if (error) throw error;
       return data;
     },
   });
 }
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
 export function useCategories() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      console.log("[useCategories] Fetching categories...");
-      const { data, error } = await supabase
-        .from("categories")
-        .select("*")
-        .order("display_order", { ascending: true });
-      if (error) {
-        console.error("[useCategories] Error:", error);
-        throw error;
+      // Use raw fetch to bypass potential Supabase client issues
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/categories?select=*&order=display_order.asc`,
+        {
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+          },
+        }
+      );
+      if (!res.ok) {
+        throw new Error(`Categories fetch failed: ${res.status}`);
       }
-      console.log("[useCategories] Got", data?.length, "categories");
-      return data;
+      const data = await res.json();
+      return data as Category[];
     },
   });
 }
