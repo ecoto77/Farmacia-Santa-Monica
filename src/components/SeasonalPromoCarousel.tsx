@@ -115,7 +115,7 @@ const SeasonalPromoCarousel = () => {
         <div className="relative group">
           <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
             <div className="flex">
-              {promotions.map((promo, i) => (
+              {promotions.map((promo) => (
                 <div key={promo.id} className="flex-[0_0_100%] min-w-0">
                   <div className="relative h-56 sm:h-64 lg:h-80 overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80">
                     <div className="absolute inset-0 flex">
