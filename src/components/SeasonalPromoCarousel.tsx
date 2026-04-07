@@ -12,7 +12,7 @@ const backgroundImages: Record<string, () => Promise<{ default: string }>> = {
 };
 
 const SeasonalPromoCarousel = () => {
-  const { data: promotions } = usePromotions();
+  const { data: promotions, isLoading: isPromotionsLoading, error: promotionsError } = usePromotions();
   const { data: settings } = useSiteSettings();
   const theme = settings?.find((s) => s.key === "promo_background_theme")?.value || "summer";
 
@@ -45,7 +45,47 @@ const SeasonalPromoCarousel = () => {
     };
   }, [emblaApi, onSelect]);
 
-  if (!promotions || promotions.length === 0) return null;
+  if (isPromotionsLoading) {
+    return (
+      <section className="relative py-20 bg-surface">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="inline-block text-accent font-semibold text-sm tracking-widest uppercase mb-3">
+              Promociones
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground">
+              Ofertas de Temporada
+            </h2>
+          </div>
+          <div className="h-56 sm:h-64 lg:h-80 rounded-2xl bg-card border border-border animate-pulse" />
+        </div>
+      </section>
+    );
+  }
+
+  if (promotionsError) {
+    return (
+      <section className="relative py-20 bg-surface">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
+            No pudimos cargar las ofertas en este momento.
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!promotions || promotions.length === 0) {
+    return (
+      <section className="relative py-20 bg-surface">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
+            Aún no hay ofertas activas.
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -59,8 +99,7 @@ const SeasonalPromoCarousel = () => {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
@@ -76,7 +115,7 @@ const SeasonalPromoCarousel = () => {
         <div className="relative group">
           <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
             <div className="flex">
-              {promotions.map((promo, i) => (
+              {promotions.map((promo) => (
                 <div key={promo.id} className="flex-[0_0_100%] min-w-0">
                   <div className="relative h-56 sm:h-64 lg:h-80 overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80">
                     <div className="absolute inset-0 flex">
