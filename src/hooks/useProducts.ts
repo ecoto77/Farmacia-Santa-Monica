@@ -2,6 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
+// Debug: log the Supabase URL at module load time
+console.log("[supabase-debug] URL:", import.meta.env.VITE_SUPABASE_URL);
+console.log("[supabase-debug] Key present:", !!import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY);
+
 export type Product = Tables<"products">;
 export type Category = Tables<"categories">;
 
