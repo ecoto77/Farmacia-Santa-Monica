@@ -5,12 +5,17 @@ export function usePromotions() {
   return useQuery({
     queryKey: ["promotions"],
     queryFn: async () => {
+      console.log("[usePromotions] Fetching promotions...");
       const { data, error } = await supabase
         .from("promotions")
         .select("*")
         .eq("is_active", true)
         .order("display_order", { ascending: true });
-      if (error) throw error;
+      if (error) {
+        console.error("[usePromotions] Error:", error);
+        throw error;
+      }
+      console.log("[usePromotions] Got", data?.length, "promotions");
       return data;
     },
   });
