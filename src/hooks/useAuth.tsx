@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       async (_event, session) => {
         const u = session?.user ?? null;
         setUser(u);
-        if (u) {
-          await checkAdmin(u.id);
+        if (u && session?.access_token) {
+          await checkAdmin(u.id, session.access_token);
         } else {
           setIsAdmin(false);
         }
@@ -67,8 +67,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       const u = session?.user ?? null;
       setUser(u);
-      if (u) {
-        checkAdmin(u.id);
+      if (u && session?.access_token) {
+        checkAdmin(u.id, session.access_token);
       }
       setLoading(false);
     });
