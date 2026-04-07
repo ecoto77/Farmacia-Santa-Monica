@@ -37,7 +37,7 @@ const ServicesSection = () => {
     image: string;
   } | null>(null);
 
-  const { data: categories } = useCategories();
+  const { data: categories, isLoading: isCategoriesLoading, error: categoriesError } = useCategories();
   const { data: searchResults, isLoading: isSearching } = useProducts({
     searchQuery: searchQuery.length >= 2 ? searchQuery : undefined,
   });
@@ -69,8 +69,7 @@ const ServicesSection = () => {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -149,6 +148,24 @@ const ServicesSection = () => {
 
         {/* Category Grid */}
         {!isSearchActive && (
+          {isCategoriesLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="rounded-2xl border border-border bg-card overflow-hidden">
+                  <div className="h-52 bg-muted animate-pulse" />
+                  <div className="p-6 space-y-3">
+                    <div className="h-6 w-2/3 bg-muted animate-pulse rounded" />
+                    <div className="h-4 w-full bg-muted animate-pulse rounded" />
+                    <div className="h-4 w-5/6 bg-muted animate-pulse rounded" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : categoriesError ? (
+            <div className="rounded-2xl border border-border bg-card p-8 text-center text-muted-foreground">
+              No pudimos cargar las categorías en este momento.
+            </div>
+          ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {(categories || []).map((category, i) => {
               const image = categoryImages[category.slug] || serviceMedicamentos;
@@ -158,8 +175,7 @@ const ServicesSection = () => {
                   custom={i}
                   variants={cardVariants}
                   initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-60px" }}
+                  animate="visible"
                   onClick={() =>
                     setSelectedCategory({
                       id: category.id,
@@ -198,6 +214,7 @@ const ServicesSection = () => {
               );
             })}
           </div>
+          )}
         )}
       </div>
 
