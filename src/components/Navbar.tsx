@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Cross as Pharmacy, ShoppingCart, Menu, X, Shield, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AdminLoginDialog from "@/components/AdminLoginDialog";
 import AdminPanel from "@/components/AdminPanel";
 
 const navLinks = [
-  { label: "Inicio", href: "#inicio" },
-  { label: "Productos", href: "#productos" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Inicio", href: "#inicio", sectionId: "inicio" },
+  { label: "Productos", href: "#productos", sectionId: "productos" },
+  { label: "Nosotros", href: "#nosotros", sectionId: "nosotros" },
+  { label: "Contacto", href: "#contacto", sectionId: "contacto" },
 ];
 
 const Navbar = () => {
@@ -17,12 +17,33 @@ const Navbar = () => {
   const [cartCount] = useState(0);
   const [loginOpen, setLoginOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("inicio");
   const { user, isAdmin, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = navLinks.map((l) => l.sectionId);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -58,7 +79,11 @@ const Navbar = () => {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-foreground/70 hover:text-accent transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+                  className={`text-sm font-medium transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 ${
+                    activeSection === link.sectionId
+                      ? "text-accent after:w-full"
+                      : "text-foreground/70 hover:text-accent after:w-0 hover:after:w-full"
+                  }`}
                 >
                   {link.label}
                 </a>
@@ -133,7 +158,11 @@ const Navbar = () => {
                 <a
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block py-2 text-sm font-medium text-foreground/70 hover:text-accent transition-colors"
+                  className={`block py-2 text-sm font-medium transition-colors ${
+                    activeSection === link.sectionId
+                      ? "text-accent"
+                      : "text-foreground/70 hover:text-accent"
+                  }`}
                 >
                   {link.label}
                 </a>
