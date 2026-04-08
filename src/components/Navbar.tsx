@@ -79,7 +79,11 @@ const Navbar = () => {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium text-foreground/70 hover:text-accent transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-full"
+                  className={`text-sm font-medium transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 ${
+                    activeSection === link.sectionId
+                      ? "text-accent after:w-full"
+                      : "text-foreground/70 hover:text-accent after:w-0 hover:after:w-full"
+                  }`}
                 >
                   {link.label}
                 </a>
