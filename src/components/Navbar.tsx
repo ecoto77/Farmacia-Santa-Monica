@@ -158,7 +158,11 @@ const Navbar = () => {
                 <a
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block py-2 text-sm font-medium text-foreground/70 hover:text-accent transition-colors"
+                  className={`block py-2 text-sm font-medium transition-colors ${
+                    activeSection === link.sectionId
+                      ? "text-accent"
+                      : "text-foreground/70 hover:text-accent"
+                  }`}
                 >
                   {link.label}
                 </a>
