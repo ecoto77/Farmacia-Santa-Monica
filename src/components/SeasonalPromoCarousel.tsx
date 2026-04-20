@@ -38,7 +38,7 @@ const SeasonalPromoCarousel = () => {
     if (!emblaApi) return;
     onSelect();
     emblaApi.on("select", onSelect);
-    const interval = setInterval(() => emblaApi.scrollNext(), 5000);
+    const interval = setInterval(() => emblaApi.scrollNext(), 9000);
     return () => {
       clearInterval(interval);
       emblaApi.off("select", onSelect);
