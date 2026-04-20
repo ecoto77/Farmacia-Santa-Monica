@@ -132,7 +132,7 @@ const ServicesSection = () => {
                             </div>
                           </div>
                           {product.price !== null && product.price > 0 && (
-                            <span className="text-sm font-bold text-accent">${product.price.toFixed(2)}</span>
+                            <span className="text-sm font-bold text-accent">₡{product.price.toLocaleString("es-CR", { maximumFractionDigits: 0 })}</span>
                           )}
                         </div>
                       ))}

@@ -81,7 +81,7 @@ const CategoryProductsDialog = ({
                     </div>
                     {product.price !== null && product.price > 0 && (
                       <span className="text-sm font-bold text-accent whitespace-nowrap">
-                        ${product.price.toFixed(2)}
+                        ₡{product.price.toLocaleString("es-CR", { maximumFractionDigits: 0 })}
                       </span>
                     )}
                     {product.price === 0 && (
