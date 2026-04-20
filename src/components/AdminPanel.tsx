@@ -236,7 +236,7 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
                 <div key={p.id} className="flex items-center justify-between gap-2 p-3 rounded-lg border border-border bg-card text-sm">
                   <div className="min-w-0 flex-1">
                     <span className="font-medium text-foreground">{p.name}</span>
-                    {p.price !== null && <span className="text-muted-foreground ml-2">${p.price}</span>}
+                    {p.price !== null && <span className="text-muted-foreground ml-2">₡{Number(p.price).toLocaleString("es-CR", { maximumFractionDigits: 0 })}</span>}
                   </div>
                   <Button variant="ghost" size="icon" onClick={() => handleDeleteProduct(p.id)} className="shrink-0 text-destructive hover:text-destructive">
                     <Trash2 className="w-4 h-4" />
