@@ -143,11 +143,22 @@ const SeasonalPromoCarousel = () => {
                       {/* Image */}
                       <div className="hidden sm:flex w-2/5 items-center justify-center p-6">
                         {promo.image_url ? (
-                          <img
-                            src={promo.image_url}
-                            alt={promo.title}
-                            className="max-h-full max-w-full object-contain rounded-xl drop-shadow-lg"
-                          />
+                          /\.(mp4|webm|mov)$/i.test(promo.image_url) ? (
+                            <video
+                              src={promo.image_url}
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              className="max-h-full max-w-full object-contain rounded-xl drop-shadow-lg"
+                            />
+                          ) : (
+                            <img
+                              src={promo.image_url}
+                              alt={promo.title}
+                              className="max-h-full max-w-full object-contain rounded-xl drop-shadow-lg"
+                            />
+                          )
                         ) : (
                           <div className="w-40 h-40 lg:w-52 lg:h-52 rounded-xl bg-primary-foreground/10 border-2 border-dashed border-primary-foreground/30 flex items-center justify-center">
                             <span className="text-primary-foreground/40 text-xs text-center px-2">Imagen</span>
