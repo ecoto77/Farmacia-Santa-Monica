@@ -23,7 +23,7 @@ const CategoryProductsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl max-h-[85vh] p-0 overflow-hidden rounded-2xl border-border bg-card">
+      <DialogContent className="sm:max-w-xl max-h-[85vh] p-0 overflow-hidden rounded-2xl border-border bg-card [&>button]:hidden">
         {/* Header with image */}
         <div className="relative h-40 overflow-hidden">
           <img
