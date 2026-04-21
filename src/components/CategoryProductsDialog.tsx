@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Package, Pill, FlaskConical } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface CategoryProductsDialogProps {
   open: boolean;
@@ -22,7 +23,7 @@ const CategoryProductsDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl max-h-[85vh] p-0 overflow-hidden rounded-2xl border-border bg-card">
+      <DialogContent className="sm:max-w-xl max-h-[85vh] p-0 overflow-hidden rounded-2xl border-border bg-card [&>button]:hidden">
         {/* Header with image */}
         <div className="relative h-40 overflow-hidden">
           <img
@@ -31,6 +32,16 @@ const CategoryProductsDialog = ({
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/30 to-transparent" />
+          {/* Custom pill close button */}
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => onOpenChange(false)}
+            className="absolute top-3 right-3 z-10 h-10 w-10 rounded-full bg-white/90 hover:bg-white text-foreground shadow-lg shadow-black/20 border-0 backdrop-blur-sm transition-all duration-200 hover:scale-105"
+          >
+            <X className="h-5 w-5" strokeWidth={2.5} />
+            <span className="sr-only">Cerrar</span>
+          </Button>
           <DialogHeader className="absolute bottom-0 left-0 right-0 p-6">
             <DialogTitle className="text-2xl font-display font-bold text-white">
               {categoryName}
