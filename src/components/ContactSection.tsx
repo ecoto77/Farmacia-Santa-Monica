@@ -42,8 +42,9 @@ const contactInfo = [
   {
     icon: Clock,
     label: "Horario",
-    value: "L-S: 8am-8pm | Dom: 9am-7pm",
+    value: "Lunes - Sábado 8:00am - 8:00pm y Domingos 9:00am - 7:00pm",
     href: null,
+    fullWidth: true,
   },
 ];
 
@@ -111,12 +112,12 @@ const ContactSection = () => {
               {contactInfo.map((item) => (
                 <div
                   key={item.label}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-card border border-border"
+                  className={`flex items-start gap-3 p-4 rounded-xl bg-card border border-border ${(item as { fullWidth?: boolean }).fullWidth ? 'sm:col-span-2' : ''}`}
                 >
                   <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                     <item.icon className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-muted-foreground font-medium">{item.label}</p>
                     {item.href ? (
                       <a
