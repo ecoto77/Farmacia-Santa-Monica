@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { FloatingLabelInput, FloatingLabelTextarea } from "@/components/ui/floating-label-input";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -165,29 +164,32 @@ const ContactSection = () => {
               <h3 className="text-lg font-bold text-foreground">Envíanos un mensaje</h3>
 
               <div>
-                <Input
-                  placeholder="Tu nombre"
+                <FloatingLabelInput
+                  label="Tu nombre"
                   value={form.name}
+                  error={!!errors.name}
                   onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                 />
                 {errors.name && <p className="text-xs text-destructive mt-1">{errors.name}</p>}
               </div>
 
               <div>
-                <Input
+                <FloatingLabelInput
                   type="email"
-                  placeholder="Tu email"
+                  label="Tu email"
                   value={form.email}
+                  error={!!errors.email}
                   onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
                 />
                 {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
               </div>
 
               <div>
-                <Textarea
-                  placeholder="¿En qué podemos ayudarte?"
+                <FloatingLabelTextarea
+                  label="¿En qué podemos ayudarte?"
                   rows={5}
                   value={form.message}
+                  error={!!errors.message}
                   onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                 />
                 {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
