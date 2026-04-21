@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Package, Pill, FlaskConical } from "lucide-react";
 import { useProducts } from "@/hooks/useProducts";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface CategoryProductsDialogProps {
   open: boolean;
