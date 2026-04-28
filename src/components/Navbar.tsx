@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { Cross as Pharmacy, ShoppingCart, Menu, X, Shield, LogOut } from "lucide-react";
+import { ShoppingCart, Menu, X, Shield, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import AdminLoginDialog from "@/components/AdminLoginDialog";
 import AdminPanel from "@/components/AdminPanel";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio", sectionId: "inicio" },
@@ -54,10 +55,10 @@ const Navbar = () => {
         <nav className="container mx-auto flex items-center justify-between px-6 py-4">
           {/* Logo */}
           <a href="#inicio" className="flex items-center gap-2 group">
-            <Pharmacy
-              className="text-accent transition-transform duration-300 group-hover:rotate-12"
-              size={28}
-              strokeWidth={2.5}
+            <img
+              src={logo}
+              alt="Farmacia Santa Mónica"
+              className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110"
             />
             <div className="flex flex-col leading-none">
               <span className="font-display text-lg font-semibold tracking-tight text-foreground">
