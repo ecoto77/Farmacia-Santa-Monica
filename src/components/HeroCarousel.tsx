@@ -65,7 +65,7 @@ const HeroCarousel = () => {
           <img
             src={slides[current].image}
             alt={slides[current].headline}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-[center_75%]"
             width={1920}
             height={1080}
           />
