@@ -50,7 +50,7 @@ const SeasonalPromoCarousel = () => {
       <section className="relative py-20 bg-surface">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <span className="inline-block text-accent font-semibold text-sm tracking-widest uppercase mb-3">
+            <span className="inline-block text-accent font-bold text-lg tracking-widest uppercase mb-3">
               Promociones
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground">
@@ -103,7 +103,7 @@ const SeasonalPromoCarousel = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <span className="inline-block text-accent font-semibold text-sm tracking-widest uppercase mb-3">
+          <span className="inline-block text-accent font-bold text-lg tracking-widest uppercase mb-3">
             Promociones
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground">
