@@ -73,7 +73,7 @@ const ServicesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block text-accent font-semibold text-sm tracking-widest uppercase mb-3">
+          <span className="inline-block text-accent font-bold text-lg tracking-widest uppercase mb-3">
             Nuestros Servicios
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
