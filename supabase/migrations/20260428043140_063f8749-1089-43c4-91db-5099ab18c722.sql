@@ -1,0 +1,1 @@
+UPDATE promotions SET image_url = 'https://tbzyubdtlzlzdbqzbkyu.supabase.co/storage/v1/object/public/promotions/dekofen.jpeg' WHERE id = '6a04197a-de76-4706-afb2-a2d2ab94ab2d';
