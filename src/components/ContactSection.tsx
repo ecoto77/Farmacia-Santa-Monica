@@ -105,7 +105,7 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="space-y-6 flex flex-col"
           >
             <div className="grid sm:grid-cols-2 gap-4">
               {contactInfo.map((item) => (
@@ -136,7 +136,7 @@ const ContactSection = () => {
             </div>
 
             {/* Google Maps embed placeholder */}
-            <div className="rounded-xl overflow-hidden border border-border h-64">
+            <div className="rounded-xl overflow-hidden border border-border h-64 flex-1 min-h-[16rem]">
               <iframe
                 title="Ubicación de la farmacia"
                 src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3000!2d-84.273139!3d10.454389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2z!5e0!3m2!1ses!2scr!4v1700000000000&q=10.454389,-84.273139&z=16"
@@ -156,10 +156,11 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="flex"
           >
             <form
               onSubmit={handleSubmit}
-              className="p-6 md:p-8 rounded-2xl bg-card border border-border space-y-5"
+              className="p-6 md:p-8 rounded-2xl bg-card border border-border space-y-5 flex flex-col w-full"
             >
               <h3 className="text-lg font-bold text-foreground">Envíanos un mensaje</h3>
 
@@ -195,7 +196,7 @@ const ContactSection = () => {
                 {errors.message && <p className="text-xs text-destructive mt-1">{errors.message}</p>}
               </div>
 
-              <Button type="submit" className="w-full" disabled={sending}>
+              <Button type="submit" className="w-full mt-auto" disabled={sending}>
                 <Send className="w-4 h-4 mr-2" />
                 {sending ? "Enviando..." : "Enviar mensaje"}
               </Button>
