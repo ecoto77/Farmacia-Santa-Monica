@@ -79,7 +79,7 @@ const Navbar = () => {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`text-sm font-medium transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 ${
+                  className={`text-base font-medium transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-accent after:transition-all after:duration-300 ${
                     activeSection === link.sectionId
                       ? "text-accent after:w-full"
                       : "text-foreground/70 hover:text-accent after:w-0 hover:after:w-full"
@@ -158,7 +158,7 @@ const Navbar = () => {
                 <a
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`block py-2 text-sm font-medium transition-colors ${
+                  className={`block py-2 text-base font-medium transition-colors ${
                     activeSection === link.sectionId
                       ? "text-accent"
                       : "text-foreground/70 hover:text-accent"
