@@ -139,7 +139,7 @@ const ContactSection = () => {
             <div className="rounded-xl overflow-hidden border border-border h-64 flex-1 min-h-[16rem]">
               <iframe
                 title="Ubicación de la farmacia"
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3000!2d-84.273139!3d10.454389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2z!5e0!3m2!1ses!2scr!4v1700000000000&q=10.454389,-84.273139&z=16"
+                src="https://www.google.com/maps?q=Farmacia+Santa+M%C3%B3nica+Y+Consultorio+M%C3%A9dico+San+Agust%C3%ADn,+Pital,+San+Carlos&output=embed&z=17"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
