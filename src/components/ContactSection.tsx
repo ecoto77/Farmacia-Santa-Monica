@@ -36,7 +36,7 @@ const contactInfo = [
     icon: MapPin,
     label: "Dirección",
     value: "Pital, San Carlos, Costa Rica",
-    href: "https://www.google.com/maps?q=10.454389,-84.273139",
+    href: "https://maps.app.goo.gl/ehMYJ8fpSXq289t56",
   },
   {
     icon: Clock,
