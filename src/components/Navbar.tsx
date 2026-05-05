@@ -121,6 +121,8 @@ const Navbar = () => {
               </button>
             )}
 
+            {/* SHOPPING CART START - hidden for now, uncomment to re-enable */}
+            {/*
             <button
               className="relative text-foreground/70 hover:text-accent transition-colors duration-200"
               aria-label="Carrito de compras"
@@ -132,6 +134,8 @@ const Navbar = () => {
                 </span>
               )}
             </button>
+            */}
+            {/* SHOPPING CART END */}
 
             <button
               className="md:hidden text-foreground/70 hover:text-accent transition-colors"
