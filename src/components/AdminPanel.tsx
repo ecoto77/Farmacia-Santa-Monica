@@ -365,7 +365,16 @@ const AdminPanel = ({ open, onOpenChange }: AdminPanelProps) => {
                       {new Date(msg.created_at).toLocaleDateString("es-CR")}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground">{msg.email}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-xs text-muted-foreground">{msg.email}</p>
+                    <a
+                      href={`mailto:${msg.email}?subject=${encodeURIComponent("Re: Tu mensaje en Farmacia Santa Mónica")}&body=${encodeURIComponent(`Hola ${msg.name},\n\n`)}`}
+                    >
+                      <Button variant="outline" size="sm" className="h-6 px-2 text-xs">
+                        <Mail className="w-3 h-3 mr-1" /> Responder
+                      </Button>
+                    </a>
+                  </div>
                   <p className="text-foreground">{msg.message}</p>
                   <div className="flex gap-2 pt-1">
                     {!msg.is_read && (
