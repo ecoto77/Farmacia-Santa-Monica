@@ -201,10 +201,10 @@ const ServicesSection = () => {
                         <h3 className="font-display text-xl font-bold text-foreground mb-2">
                           {category.name}
                         </h3>
-                        <p className="text-muted-foreground text-sm leading-relaxed">
+                        <p className="text-muted-foreground text-base leading-relaxed">
                           {category.description}
                         </p>
-                        <span className="inline-block mt-3 text-accent text-sm font-medium group-hover:underline">
+                        <span className="inline-block mt-3 text-accent text-base font-medium group-hover:underline">
                           Ver productos →
                         </span>
                       </div>
