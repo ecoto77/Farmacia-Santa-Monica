@@ -5,7 +5,7 @@ import serviceDermocosmetica from "@/assets/service-dermocosmetica.jpg";
 import serviceBebes from "@/assets/service-bebes.jpg";
 import serviceNutricion from "@/assets/service-nutricion.jpg";
 import serviceAccesorios from "@/assets/service-accesorios.jpg";
-import serviceAtencion from "@/assets/service-atencion.jpg";
+import serviceCuidadoPersonal from "@/assets/service-cuidado-personal.jpg";
 import ProductSearch from "@/components/ProductSearch";
 import CategoryProductsDialog from "@/components/CategoryProductsDialog";
 import { useCategories, useProducts } from "@/hooks/useProducts";
@@ -17,7 +17,7 @@ const categoryImages: Record<string, string> = {
   bebes: serviceBebes,
   nutricion: serviceNutricion,
   accesorios: serviceAccesorios,
-  atencion: serviceAtencion,
+  atencion: serviceCuidadoPersonal,
 };
 
 const cardVariants = {
