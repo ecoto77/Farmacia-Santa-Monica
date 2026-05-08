@@ -117,10 +117,10 @@ const SeasonalPromoCarousel = () => {
             <div className="flex">
               {promotions.map((promo) => (
                 <div key={promo.id} className="flex-[0_0_100%] min-w-0">
-                  <div className="relative h-[28rem] sm:h-96 lg:h-[32rem] overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80">
-                    <div className="absolute inset-0 flex flex-col sm:flex-row">
+                  <div className="relative min-h-[28rem] sm:h-96 lg:h-[32rem] overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80">
+                    <div className="flex flex-col sm:absolute sm:inset-0 sm:flex-row min-h-[28rem] sm:min-h-0">
                       {/* Content */}
-                      <div className="w-full sm:w-1/2 flex flex-col justify-center px-6 sm:px-10 lg:px-14 py-6 sm:py-0">
+                      <div className="w-full sm:w-1/2 flex flex-col justify-center px-6 sm:px-10 lg:px-14 py-6 sm:py-0 shrink-0">
                         {promo.badge && (
                           <span className="inline-block w-fit px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-bold uppercase tracking-wider mb-3">
                             {promo.badge}
@@ -141,7 +141,7 @@ const SeasonalPromoCarousel = () => {
                         )}
                       </div>
                       {/* Image */}
-                      <div className="w-full sm:w-1/2 flex items-center justify-center p-4 lg:p-6 h-48 sm:h-auto">
+                      <div className="w-full sm:w-1/2 flex items-center justify-center p-4 lg:p-6 flex-1 min-h-[10rem] sm:min-h-0 sm:flex-none sm:h-auto">
                         {promo.image_url ? (
                           /\.(mp4|webm|mov)$/i.test(promo.image_url) ? (
                             <video
