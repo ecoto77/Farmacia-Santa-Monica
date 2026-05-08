@@ -1,0 +1,1 @@
+UPDATE public.categories SET name = 'Cuidado Personal y Salud Sexual', description = 'Condones, lubricantes, jabones, cuidado bucal y más para tu higiene diaria.' WHERE slug = 'atencion';
