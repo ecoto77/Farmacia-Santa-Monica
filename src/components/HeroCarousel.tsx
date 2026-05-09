@@ -112,16 +112,16 @@ const HeroCarousel = () => {
         <button
           onClick={prev}
           aria-label="Slide anterior"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-primary-foreground/30 text-primary-foreground/70 backdrop-blur-sm transition-all hover:bg-primary-foreground/10 hover:text-primary-foreground"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-primary-foreground/50 bg-primary-foreground/30 text-primary-foreground shadow-md backdrop-blur-md transition-all hover:bg-primary-foreground/50"
         >
-          <ChevronLeft size={20} />
+          <ChevronLeft size={24} />
         </button>
         <button
           onClick={next}
           aria-label="Siguiente slide"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-primary-foreground/30 text-primary-foreground/70 backdrop-blur-sm transition-all hover:bg-primary-foreground/10 hover:text-primary-foreground"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-primary-foreground/50 bg-primary-foreground/30 text-primary-foreground shadow-md backdrop-blur-md transition-all hover:bg-primary-foreground/50"
         >
-          <ChevronRight size={20} />
+          <ChevronRight size={24} />
         </button>
       </div>
 
